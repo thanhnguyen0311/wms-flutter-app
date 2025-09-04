@@ -52,8 +52,8 @@ class Lpn {
     return {
       'tagID': tagID,
       'sku': sku,
-      'quantity': quantity,
       'containerNumber': containerNumber,
+      'quantity': quantity,
       'bayCode': bayCode,
       'date': date.toIso8601String(), // Serialize DateTime to ISO string
     };

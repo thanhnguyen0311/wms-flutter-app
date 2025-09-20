@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../services/auth_service.dart';
+import 'login_screen.dart';
 import 'lpn_manager/lpn_manager_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -80,7 +84,38 @@ class DashboardScreen extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => DummyScreen(title: 'Users Screen')));
               },
-            )
+            ),
+            Divider(),
+            // Logout Option
+            FutureBuilder<String?>(
+              future: AuthService.getToken(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SizedBox.shrink(); // Show nothing while loading
+                } else if (snapshot.hasData && snapshot.data != null) {
+                  // If token exists, show "Log out" option
+                  return ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text('Log Out'),
+                    onTap: () async {
+                      final SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                      prefs.remove('token'); // Remove token for logout
+
+                      // Navigate back to LoginScreen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      );
+                    },
+                  );
+                } else {
+                  // Else show nothing
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
+
           ],
         ),
       ),

@@ -7,15 +7,17 @@ import 'login_screen.dart';
 class InitialScreen extends StatelessWidget {
   const InitialScreen({Key? key}) : super(key: key);
 
-  Future<bool> checkLoginState() async {
+  Future<bool> checkTokenState() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedIn') ?? false; // Default to false if no value is found
+    final String? token = prefs.getString('token'); // Check for stored token
+    return token != null && token.isNotEmpty;
+    // Default to false if no value is found
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: checkLoginState(),
+      future: checkTokenState(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Show a loading indicator while the Future completes

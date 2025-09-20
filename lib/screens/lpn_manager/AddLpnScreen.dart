@@ -170,7 +170,7 @@ class _AddLpnScreenState extends State<AddLpnScreen> {
 
         // Show the error message in a SnackBar
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage)),
+          SnackBar(content: Text(e.toString())),
         );
 
       } finally {

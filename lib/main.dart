@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wms/screens/dashboard_screen.dart';
+import 'package:wms/screens/initial_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Warehouse App',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
-      home: const DashboardScreen(),
+      title: 'Login App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const InitialScreen(), // Show InitialScreen at launch
     );
   }
+
 }
